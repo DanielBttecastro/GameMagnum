@@ -6,7 +6,7 @@ import { Player } from '../../models/player.model';
   providedIn: 'root'
 })
 export class PlayersService {
-  _baseUrl = 'http://piedrapapeltijeras.somee.com/api/Players/';
+  _baseUrl = 'https://danibttecastrom-001-site1.dtempurl.com/api/Players/';
   private http = inject(HttpClient)
   constructor() { }
 

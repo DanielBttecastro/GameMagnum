@@ -8,7 +8,7 @@ import { RoundGame } from 'src/app/models/round-game.model';
   providedIn: 'root'
 })
 export class RoundGameService {
-  _baseUrl = 'http://piedrapapeltijeras.somee.com/api/RoundsGames/';
+  _baseUrl = 'https://danibttecastrom-001-site1.dtempurl.com/api/RoundsGames/';
   private http = inject(HttpClient)
   constructor() { }
 

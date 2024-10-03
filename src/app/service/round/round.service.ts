@@ -8,7 +8,7 @@ import { Rounds } from 'src/app/models/rounds.model';
 })
 export class RoundService {
 
-  _baseUrl = 'http://piedrapapeltijeras.somee.com/api/Rounds/';
+  _baseUrl = 'https://danibttecastrom-001-site1.dtempurl.com/api/Rounds/';
   private http = inject(HttpClient)
   constructor() { }
   createRound(newRound: Rounds): Observable<Rounds> {

@@ -7,7 +7,7 @@ import { Game } from 'src/app/models/game.model';
   providedIn: 'root'
 })
 export class GamesService {
-  _baseUrl = 'http://piedrapapeltijeras.somee.com/api/Games/';
+  _baseUrl = 'https://danibttecastrom-001-site1.dtempurl.com/api/Games/';
   private http = inject(HttpClient)
   constructor() { }
 

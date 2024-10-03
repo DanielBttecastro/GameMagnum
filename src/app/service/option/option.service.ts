@@ -7,7 +7,7 @@ import { Options } from 'src/app/models/options.model';
   providedIn: 'root'
 })
 export class OptionService {
-  _baseUrl = 'http://piedrapapeltijeras.somee.com/api/Options/';
+  _baseUrl = 'https://danibttecastrom-001-site1.dtempurl.com/api/Options/';
   private http = inject(HttpClient)
   constructor() { }
 
