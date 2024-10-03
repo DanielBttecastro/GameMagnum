@@ -1,0 +1,21 @@
+<div *ngIf="!playerCreated" class="p-10 flex flex-col bg-white rounded-xl">
+  <span class="text-2xl font-bold text-fondo">{{namePlayer}}</span>
+  <input type="text" class="py-2 border-2 mt-4 rounded-lg border-fondo" [(ngModel)]="player">
+  <button (click)="savePlayer(player)"
+    class="mt-4 py-2 px-4 bg-fondo rounded-lg text-white text-xl transition-transform transform hover:scale-105">
+    Iniciar
+  </button>
+</div>
+<div *ngIf="playerCreated" class="p-10 flex flex-col bg-white rounded-xl w-72 h-64">
+  <img src="../../../assets/public/Check.png" class="w-full h-full object-contain" alt="Check Image">
+</div>
+
+<div *ngIf="errorCreated" class="absolute top-1/2 left-0 bg-red-500 rounded-xl py-5 px-3">
+  <div class="absolute -top-0 -right-0 cursor-pointer" (click)="closeError()">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+      stroke-width="2" stroke="white" class="size-6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+    </svg>
+  </div>
+  <span class="text-white text-xl font-bold">El nombre del jugador {{number}} no debe estar vacio.</span>
+</div>

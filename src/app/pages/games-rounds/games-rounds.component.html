@@ -1,0 +1,78 @@
+<div *ngIf="winer&& !victory" class="h-screen w-screen flex justify-center"
+  [ngClass]="{'Fondo1': shift,'Fondo2': !shift}">
+  <div class="absolute top-0 left-2">
+    <span class="text-white text-4xl ">
+      Ronda {{round}}
+    </span>
+  </div>
+  <div class="absolute top-10 left-2 flex">
+
+    <div *ngFor="let resultRounds of resultRound" class="border-2 flex f  border-white  bg-white">
+
+      <div *ngIf="resultRounds[1].name==playerActive.name && resultRounds[2]=='1'"
+        class="border-2 border-green-600 bg-green-600 w-10 h-10 m-2 text-white font-bold flex justify-center items-center text-lg">
+        {{resultRounds[0]}}</div>
+      <div *ngIf="resultRounds[1].name==playerActive.name && resultRounds[2]=='0'"
+        class="border-2 border-red-600 bg-red-600 w-10 h-10 m-2 text-white font-bold flex justify-center items-center text-lg">
+        {{resultRounds[0]}}</div>
+        <div *ngIf="resultRounds[1].name==playerActive.name && resultRounds[2]=='2'"
+        class="border-2 border-orange-600 bg-orange-600 w-10 h-10 m-2 text-white font-bold flex justify-center items-center text-lg">
+        {{resultRounds[0]}}</div>
+    </div>
+  </div>
+  <span class="text-white  text-9xl font-bold mt-20">
+    {{playerActive.name}}
+  </span>
+  <div class="absolute top-1/2 lg:bottom-0  lg:top-auto grid  grid-cols-3">
+    <div (click)="chooseOption('1')"
+      class="bg-white   rounded-lg  sm:w-52 mx-5 cursor-pointer hover:transform hover:-translate-y-2 transition-transform duration-300">
+      <img src="../../../assets/public/Piedra-01.png" alt="">
+    </div>
+    <div (click)="chooseOption('2')"
+      class="bg-white rounded-lg  sm:w-52 mx-5 cursor-pointer hover:transform hover:-translate-y-2 transition-transform duration-300">
+      <img src="../../../assets/public/Papel-01.png" alt="">
+    </div>
+    <div (click)="chooseOption('3')"
+      class="bg-white rounded-lg  sm:w-52 mx-5 cursor-pointer hover:transform hover:-translate-y-2 transition-transform duration-300">
+      <img src="../../../assets/public/Tijeras-01.png" alt="">
+    </div>
+  </div>
+
+</div>
+
+<div *ngIf="!winer &&!victory" class="h-screen w-screen flex justify-center items-center FondoWiner"> 
+  <div *ngIf="playerWinnerRound" class=" flex flex-col bg-white p-10 rounded-xl shadow-lg shadow-black justify-center items-center">
+      <span class="text-3xl md:text-5xl font-bold">
+      Ganador de la ronda {{round-1}}
+    </span>
+    <span class="text-3xl md:text-5xl font-bold mt-4">
+      {{ playerWinnerRound?.name }}
+    </span>
+    <button (click)="continuar()"
+      class="py-2 px-4 bg-red-600 mt-6 font-bold rounded-lg text-white text-xl md:text-3xl">Continuar</button>
+  
+  </div>
+  <div *ngIf="!playerWinnerRound" class="flex flex-col bg-white p-10 rounded-xl shadow-lg shadow-black justify-center items-center">
+    <span  class="text-5xl font-bold">
+      Empate
+    </span>
+    <button (click)="continuar()"
+      class="py-2 px-3 bg-red-600 mt-10 font-bold rounded-lg text-white text-3xl">Continuar</button>
+  </div>
+</div>
+<div *ngIf="victory" class="h-screen w-screen FondoWiner flex justify-center items-center">
+   
+  <div class="flex flex-col bg-white py-10 px-24 rounded-xl shadow-lg shadow-black justify-center items-center">
+    <span class="text-5xl font-bold">
+      Ganador es
+    </span>
+    <span class="text-5xl font-bold mt-10">
+      {{ playerWinnerRound?.name }}
+    </span>
+    <button (click)="playAgain()" class="py-2 px-3 bg-green-600 mt-10 font-bold rounded-lg text-white text-3xl">Volver a
+      jugar</button>
+    <a href="" class="py-2 px-3 cursor-pointer bg-orange-600 mt-10 font-bold rounded-lg text-white text-3xl">Ir a
+      menu</a>
+  </div>
+
+</div>
