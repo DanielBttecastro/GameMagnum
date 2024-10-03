@@ -9,13 +9,13 @@
 
     <div *ngFor="let resultRounds of resultRound" class="border-2 flex f  border-white  bg-white">
 
-      <div *ngIf="resultRounds[1].name==playerActive.name && resultRounds[2]=='1'"
+      <div *ngIf="resultRounds[1].id==playerActive.id && resultRounds[2]=='1'"
         class="border-2 border-green-600 bg-green-600 w-10 h-10 m-2 text-white font-bold flex justify-center items-center text-lg">
         {{resultRounds[0]}}</div>
-      <div *ngIf="resultRounds[1].name==playerActive.name && resultRounds[2]=='0'"
+      <div *ngIf="resultRounds[1].id==playerActive.id && resultRounds[2]=='0'"
         class="border-2 border-red-600 bg-red-600 w-10 h-10 m-2 text-white font-bold flex justify-center items-center text-lg">
         {{resultRounds[0]}}</div>
-        <div *ngIf="resultRounds[1].name==playerActive.name && resultRounds[2]=='2'"
+        <div *ngIf="resultRounds[1].id==playerActive.id && resultRounds[2]=='2'"
         class="border-2 border-orange-600 bg-orange-600 w-10 h-10 m-2 text-white font-bold flex justify-center items-center text-lg">
         {{resultRounds[0]}}</div>
     </div>
