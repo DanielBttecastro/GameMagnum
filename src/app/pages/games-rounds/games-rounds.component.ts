@@ -9,7 +9,9 @@ import { GamesService } from 'src/app/service/games/games.service';
 import { OptionService } from 'src/app/service/option/option.service';
 import { RoundService } from 'src/app/service/round/round.service';
 import { GameStrategy, RockPaperScissorsStrategy } from 'src/app/interface/game-strategy';
-import { GameManagerService  } from 'src/app/service/gameManager.service';
+import { GameManagerService } from 'src/app/service/gameManager.service';
+import { RoundGame } from 'src/app/models/round-game.model';
+import { RoundGameService } from 'src/app/service/roundGame/round-game.service';
 
 @Component({
   selector: 'app-games-rounds',
@@ -18,6 +20,7 @@ import { GameManagerService  } from 'src/app/service/gameManager.service';
 })
 export class GamesRoundsComponent implements OnInit {
   resultRound: [number, Player, string][] = [];
+  roundActual!: Rounds;
   shift: boolean = true;
   optionPlaye1!: string;
   optionPlayer2!: string;
@@ -34,15 +37,18 @@ export class GamesRoundsComponent implements OnInit {
   victory: boolean = false;
 
   constructor(
-    private readonly servicesServer: GameManagerService ,
+    private readonly servicesServer: GameManagerService,
     private readonly roundService: RoundService,
-    private readonly gamesService: GamesService
-  ) {}
+    private readonly gamesService: GamesService,
+    private readonly roundGameService: RoundGameService
+  ) { }
 
   ngOnInit(): void {
     this.player1 = this.servicesServer.getLocalStorage('Player1') || {};
     this.player2 = this.servicesServer.getLocalStorage('Player2') || {};
+    this.roundActual = this.servicesServer.getLocalStorageRound('Round') || new Rounds();
     this.playerActive = this.player1;
+
   }
 
   chooseOption(option: string) {
@@ -76,6 +82,7 @@ export class GamesRoundsComponent implements OnInit {
       this.roundService.createRound(newRound).subscribe(
         (response) => {
           sessionStorage.setItem('Round', JSON.stringify(response));
+          this.roundActual = response
         },
         (error) => {
           console.error('Error al crear el jugador:', error);
@@ -91,11 +98,23 @@ export class GamesRoundsComponent implements OnInit {
     if (result === 1) {
       this.victoriesPlayer1++;
       this.playerWinnerRound = this.player1;
+      this.servicesServer.createGameRound(this.optionPlaye1, this.player1, this.roundActual, true)
+      this.servicesServer.createGameRound(this.optionPlayer2, this.player2, this.roundActual, false)
+
     } else if (result === 2) {
       this.victoriesPlayer2++;
       this.playerWinnerRound = this.player2;
+
+      this.servicesServer.createGameRound(this.optionPlaye1, this.player1, this.roundActual, false)
+      this.servicesServer.createGameRound(this.optionPlayer2, this.player2, this.roundActual, true)
+
     } else {
       this.playerWinnerRound = null;
+
+
+      this.servicesServer.createGameRound(this.optionPlaye1, this.player1, this.roundActual, false)
+      this.servicesServer.createGameRound(this.optionPlayer2, this.player2, this.roundActual, false)
+
     }
     this.SelectOption(this.round, this.player1, result === 1 ? '1' : result === 0 ? '2' : '0');
     this.SelectOption(this.round, this.player2, result === 2 ? '1' : result === 0 ? '2' : '0');
@@ -121,6 +140,8 @@ export class GamesRoundsComponent implements OnInit {
         console.log(newRound);
         this.roundService.createRound(newRound).subscribe(
           (response) => {
+            this.roundActual = response
+            console.log(response)
             sessionStorage.setItem('Round', JSON.stringify(response));
             window.location.reload();
           },
