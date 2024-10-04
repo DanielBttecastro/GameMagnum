@@ -7,6 +7,8 @@ import { Game } from '../models/game.model';
 import { Rounds } from '../models/rounds.model';
 import { Observable, Subject } from 'rxjs';
 import { PlayersService } from './players/players.service';
+import { RoundGame } from '../models/round-game.model';
+import { RoundGameService } from './roundGame/round-game.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,9 +22,10 @@ export class GameManagerService {
 
 
   constructor(
-    private readonly gamesService: GamesService,
-    private readonly roundService: RoundService,
     private readonly playerService: PlayersService,
+    private readonly gamesService: GamesService,
+    private readonly roundGameService: RoundGameService,
+    private readonly roundService: RoundService,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -37,6 +40,11 @@ export class GameManagerService {
   }
 
   getLocalStorage(key: string): Player | null {
+    const playerData = sessionStorage.getItem(key);
+    return playerData ? JSON.parse(playerData) : null;
+  }
+
+  getLocalStorageRound(key: string): Rounds | null {
     const playerData = sessionStorage.getItem(key);
     return playerData ? JSON.parse(playerData) : null;
   }
@@ -74,6 +82,22 @@ export class GameManagerService {
       }
     );
 
+  }
+  createGameRound(optionPlayer:string,player:Player,roundActual: Rounds,victory:boolean){
+    const roundGame: RoundGame = {
+      Id_Options: optionPlayer,
+      Id_Players: player.id ?? "1",
+      Id_Rounds: roundActual.id ?? "1",
+      victory: victory
+    };
+    this.roundGameService.createRoundGame(roundGame).subscribe(
+      (response) => {
+        console.log("ActionPlayer1 " + response)
+      },
+      (error) => {
+        console.error('Error al crear el juego:', error);
+      }
+    );
   }
 
 
