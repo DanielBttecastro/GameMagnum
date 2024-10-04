@@ -1,6 +1,6 @@
 export class RoundGame {
-  Id_Rounds!:number;
-  Id_Players!:number;
-  Id_Options!:number;
+  Id_Rounds!:string;
+  Id_Players!:string;
+  Id_Options!:string;
   victory!:boolean;
 }
